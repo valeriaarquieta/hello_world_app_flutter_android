@@ -10,69 +10,92 @@ class LDSWApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'LDSW Actividad 3.4',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Text widget
-              const Text(
-                'Hello World',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        body: Stack(
+          children: [
+
+            // Imagen de fondo
+            SizedBox.expand(
+              child: Image.asset(
+                'fondo.jpeg',
+                fit: BoxFit.cover,
               ),
+            ),
 
-              const SizedBox(height: 20),
+            // Contenido principal
+            Center(
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.black.withOpacity(0.5),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
 
-              // Row widget
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text('A'),
-                  SizedBox(width: 10),
-                  Text('B'),
-                  SizedBox(width: 10),
-                  Text('C'),
-                ],
-              ),
+                    // Icono
+                    const Icon(
+                      Icons.flutter_dash,
+                      color: Colors.white,
+                      size: 80,
+                    ),
 
-              const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-              // Container widget
-              Container(
-                width: 150,
-                height: 100,
-                color: Colors.blueAccent,
-                child: const Center(
-                  child: Text(
-                    'Soy un Container',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                    // Nombre de la aplicación
+                    const Text(
+                      'LDSW Actividad 3.4',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Mensaje de bienvenida
+                    const Text(
+                      'Welcome to Flutter',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Hello World
+                    const Text(
+                      'Hello World',
+                      style: TextStyle(
+                        color: Colors.yellow,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    // Row
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Icon(Icons.star, color: Colors.amber),
+                        SizedBox(width: 10),
+                        Text(
+                          'Flutter',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-
-              const SizedBox(height: 20),
-
-              // Stack widget
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    width: 120,
-                    height: 120,
-                    color: Colors.redAccent,
-                  ),
-                  const Text(
-                    'Stack encima',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
