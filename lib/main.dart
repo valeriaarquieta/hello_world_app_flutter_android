@@ -1,102 +1,95 @@
 import 'package:flutter/material.dart';
+import 'pokemon_service.dart';
 
 void main() {
-  runApp(const LDSWApp());
+  runApp(const MyApp());
 }
 
-class LDSWApp extends StatelessWidget {
-  const LDSWApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'LDSW Actividad 3.4',
-      home: Scaffold(
-        body: Stack(
-          children: [
+      home: PokemonPage(),
+    );
+  }
+}
 
-            // Imagen de fondo
-            SizedBox.expand(
-              child: Image.asset(
-                'fondo.jpeg',
-                fit: BoxFit.cover,
+class PokemonPage extends StatelessWidget {
+  const PokemonPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final servicio = PokemonService();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('PokéAPI'),
+      ),
+
+      body: FutureBuilder<Map<String, dynamic>>(
+        future: servicio.obtenerPokemon(),
+
+        builder: (context, snapshot) {
+
+          if (snapshot.connectionState ==
+              ConnectionState.waiting) {
+
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (snapshot.hasError) {
+
+            return Center(
+              child: Text(
+                'Error: ${snapshot.error}',
               ),
-            ),
+            );
+          }
 
-            // Contenido principal
-            Center(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                color: Colors.black.withOpacity(0.5),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
+          final pokemon = snapshot.data!;
 
-                    // Icono
-                    const Icon(
-                      Icons.flutter_dash,
-                      color: Colors.white,
-                      size: 80,
-                    ),
+          return Center(
+            child: Column(
+              mainAxisAlignment:
+              MainAxisAlignment.center,
+              children: [
 
-                    const SizedBox(height: 20),
-
-                    // Nombre de la aplicación
-                    const Text(
-                      'LDSW Actividad 3.4',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // Mensaje de bienvenida
-                    const Text(
-                      'Welcome to Flutter',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // Hello World
-                    const Text(
-                      'Hello World',
-                      style: TextStyle(
-                        color: Colors.yellow,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    // Row
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.star, color: Colors.amber),
-                        SizedBox(width: 10),
-                        Text(
-                          'Flutter',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ],
+                Text(
+                  pokemon['name'].toString().toUpperCase(),
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+
+                const SizedBox(height: 20),
+
+                Image.network(
+                  pokemon['sprites']['front_default'],
+                  width: 200,
+                ),
+
+                const SizedBox(height: 20),
+
+                Text(
+                  'Altura: ${pokemon['height']}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+
+                Text(
+                  'Peso: ${pokemon['weight']}',
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
