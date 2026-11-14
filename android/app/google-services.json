@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "697425553958",
+    "project_id": "ldsw-actividad-36-firebase",
+    "storage_bucket": "ldsw-actividad-36-firebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697425553958:android:f2ef5180771b1388b454e7",
+        "android_client_info": {
+          "package_name": "com.example.hello_world_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNJlO7kd1Lc2kf80phfEBRUqrSPrlCyqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
